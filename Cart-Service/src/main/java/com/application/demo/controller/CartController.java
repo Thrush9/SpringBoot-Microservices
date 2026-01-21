@@ -5,6 +5,8 @@ import com.application.demo.config.ProductRestClient;
 import com.application.demo.model.Cart;
 import com.application.demo.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
+@RefreshScope
 public class CartController {
 
     @Autowired
@@ -24,6 +27,9 @@ public class CartController {
 
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Value("${app.name}")
+    private String appName;
 
     @GetMapping("/cartInfo")
     public ResponseEntity<Cart> getProduct(){
@@ -53,6 +59,12 @@ public class CartController {
         Product productResp = productFeignClient.getProduct().getBody();
         System.out.println("Product Info From Feign Client " + productResp.toString());
         return new ResponseEntity<>(productResp, HttpStatus.OK);
+    }
+
+    @GetMapping("/configInfo")
+    public ResponseEntity<String> getConfigInfoFromConfigServer(){
+        String result = "Fetch App Name From Config Server :: " + appName;
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
 }
