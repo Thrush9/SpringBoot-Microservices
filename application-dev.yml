@@ -1,4 +1,4 @@
 app:
-   name: Dev Application Refresh Latest
+   name: Dev Application
    version: 1
    env: dev
