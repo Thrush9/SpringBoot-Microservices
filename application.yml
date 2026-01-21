@@ -1,2 +1,4 @@
 app:
    name: Application
+   version: 1
+   env: prod
