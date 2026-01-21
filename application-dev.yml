@@ -1,4 +1,4 @@
 app:
-   name: Application
+   name: Dev Application
    version: 1
    env: dev
